@@ -1,4 +1,4 @@
-###
+### New User
 POST http://localhost:3001/session/signup HTTP/1.1
 Content-Type: application/json
 
@@ -6,4 +6,51 @@ Content-Type: application/json
     "email": "hello@test.com",
     "username": "newuser",
     "password": "newpassword"
+}
+
+### Existing User
+POST http://localhost:3001/session/signup HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "hello@test.com",
+  "username": "what",
+  "password": "newpassword"
+}
+
+### Login 
+# Valid user and password
+POST http://localhost:3001/session/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "newuser",
+  "password": "newpassword"
+}
+###
+# Invalid user
+POST http://localhost:3001/session/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "notarealuser",
+  "password": "newpassword"
+}
+
+###
+# Invalid password
+POST http://localhost:3001/session/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "newuser",
+  "password": "notavalidpassword:Warning: "
+}
+###
+# Invalid request body
+POST http://localhost:3001/session/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "password": "newpassword"
 }
