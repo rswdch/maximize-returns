@@ -22,7 +22,7 @@ app.use(express.static(path.resolve(__dirname, "../../dist/client/")));
 // Routes
 app.use("/api/purchases", purchaseRouter);
 app.use("/api/users", userRouter);
-app.use("/login", sessionRouter);
+app.use("/session", sessionRouter);
 
 /**
  * 404 handler
