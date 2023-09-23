@@ -1,19 +1,16 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import * as path from "path";
-
+// Import routers
+import { router as purchaseRouter } from "./routes/purchases.js";
+import { router as userRouter } from "./routes/users.js";
+import { router as sessionRouter } from "./routes/sessions.js";
 // ES6 compatibility for __dirname
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-import { userController } from "./controllers/userController.js";
-
 const app = express();
-
-// Import routers
-import { router as purchaseRouter } from "./routes/purchases.js";
-app.use("/api/purchases", purchaseRouter);
 
 // Middleware
 app.use(express.json());
@@ -23,10 +20,9 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "../../dist/client/")));
 
 // Routes
-app.get("/api/users", userController.getAllUsers, (req, res) => {
-  console.log(userController);
-  res.status(200).send("Success!");
-});
+app.use("/api/purchases", purchaseRouter);
+app.use("/api/users", userRouter);
+app.use("/login", sessionRouter);
 
 /**
  * 404 handler

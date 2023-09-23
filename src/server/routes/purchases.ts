@@ -4,7 +4,7 @@ import * as purchaseController from "../controllers/purchaseController.js";
 const router = express.Router();
 
 router.get(
-  "/:id",
+  "/",
   purchaseController.getUserPurchases,
   purchaseController.getPurchase,
   purchaseController.addPurchase,
