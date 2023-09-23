@@ -35,7 +35,8 @@ create table if not exists product
     id          SERIAL
         primary key,
     category_id integer
-        references category
+        references category,
+    name varchar not null
 );
 
 alter table product
