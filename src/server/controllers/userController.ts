@@ -74,8 +74,6 @@ async function login(req: Request, res: Response, next: NextFunction) {
       .where("username", "=", username)
       .executeTakeFirstOrThrow();
 
-    console.log(hashedPassword);
-
     const validPassword: boolean = await bcrypt.compare(
       password,
       hashedPassword.password
