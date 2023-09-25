@@ -1,8 +1,9 @@
 import * as express from "express";
 import { Request, Response, NextFunction } from "express";
 import * as purchaseController from "../controllers/purchaseController.js";
-import { validate, schemas } from "../utils/validation.js";
+import { validate, schemas } from "../middleware/validation.js";
 import * as userController from "../controllers/userController.js";
+import * as sessionController from "../middleware/session.js";
 const router = express.Router();
 
 /* Login
@@ -13,6 +14,7 @@ router.post(
   "/login",
   validate(schemas.login),
   userController.login,
+  sessionController.grantToken,
   (req: Request, res: Response, next: NextFunction) => {
     console.log("/login not yet implemented");
     res.status(200).send("/login not implemented");
@@ -28,6 +30,7 @@ router.post(
   validate(schemas.signup),
   userController.checkUserExists,
   userController.createUser,
+  sessionController.grantToken,
   (req: Request, res: Response, next: NextFunction) => {
     // Check if username is available
     const { email, username, password } = req.body;

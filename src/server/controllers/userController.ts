@@ -29,11 +29,17 @@ interface UserSignup {
 async function createUser(req: Request, res: Response, next: NextFunction) {
   const { email, password, username }: UserSignup = req.body;
   const newUser: UserSignup = { email, password, username };
-  let createdUser;
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   newUser.password = hashedPassword;
-  createdUser = db.insertInto("user").values(newUser).executeTakeFirst();
-  console.log(createdUser);
+
+  // Insert new user into db and get the user id
+  const createdUserId = db
+    .insertInto("user")
+    .values(newUser)
+    .returning("user.id")
+    .executeTakeFirst();
+  console.log(createdUserId);
+  res.locals.user.id = createdUserId;
   next();
 }
 
@@ -68,20 +74,23 @@ async function login(req: Request, res: Response, next: NextFunction) {
     console.log("userController.login not implemented");
     const { username, password }: UserLogin = req.body;
 
-    const hashedPassword = await db
+    const result = await db
       .selectFrom("user")
-      .select("password")
+      .select(["password", "user.id"])
       .where("username", "=", username)
       .executeTakeFirstOrThrow();
 
     const validPassword: boolean = await bcrypt.compare(
       password,
-      hashedPassword.password
+      result.password
     );
 
     if (!validPassword) {
       next({ error: { message: "Invalid credentials." } });
     }
+
+    // Store user id from database to generate a token
+    res.locals.user = result;
 
     next();
   } catch (e) {
