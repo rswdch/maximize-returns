@@ -15,6 +15,7 @@ GET http://localhost:3001/api/purchases HTTP/1.1
 Authorization: {{authToken}} 
 
 ###
+# @name purchase
 POST http://localhost:3001/api/purchases HTTP/1.1
 Authorization: {{authToken}} 
 Content-Type: application/json
@@ -22,10 +23,14 @@ Content-Type: application/json
 {
     "purchase_date": "2023-01-01",
     "product_id": 1,
-    "store_name": "Best Buy",
+    "store_name": "New Test Store to Delete",
     "return_days": 90,
     "warranty_days": 90,
-    "price": 1000,
+    "price": 1234,
     "receipt_id": "1f3b30e1-1b64-4dbd-9098-ad6f7deb62d0",
     "returned": false
 }
+
+###
+DELETE  http://localhost:3001/api/purchases/{{purchase.response.body.$.id}} HTTP/1.1
+Authorization: {{authToken}} 

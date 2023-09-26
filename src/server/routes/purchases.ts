@@ -35,4 +35,15 @@ router.get(
   }
 );
 
+router.delete(
+  "/:id",
+  session.isLoggedIn,
+  purchaseController.deletePurchase,
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log("DELETE /purchases/id");
+    const purchaseDetails = res.locals.deleted;
+    res.send(purchaseDetails);
+  }
+);
+
 export { router };

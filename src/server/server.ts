@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Type imports
-import { ErrorRequestHandler } from "express";
+import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 
 const app = express();
 
@@ -30,7 +30,7 @@ app.use("/session", sessionRouter);
 /**
  * 404 handler
  */
-app.use("*", (req, res) => {
+app.use("*", (req: Request, res: Response) => {
   res.status(404).send("Not Found");
 });
 

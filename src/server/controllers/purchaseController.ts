@@ -78,4 +78,16 @@ async function addPurchase(req: Request, res: Response, next: NextFunction) {
   next();
 }
 
-export { getPurchase, getUserPurchases, addPurchase };
+async function deletePurchase(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await db
+      .deleteFrom("purchase_details")
+      .where("id", "=", req.params.id)
+      .returningAll()
+      .executeTakeFirstOrThrow();
+    res.locals.deleted = result;
+  } catch (error) {}
+  next();
+}
+
+export { getPurchase, getUserPurchases, addPurchase, deletePurchase };
