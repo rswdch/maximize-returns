@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { db } from "../utils/pgConnect.js";
 
 function getUserPurchases(req: Request, res: Response, next: NextFunction) {
   console.log("Hello from purchaseController.getUserPurchases");

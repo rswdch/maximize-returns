@@ -1,0 +1,18 @@
+@baseurl = http://localhost:3001/
+# @name login
+POST {{baseurl}}session/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "newuser",
+  "password": "newpassword"
+}
+###
+@authToken = {{login.response.body.$.token}}
+
+###
+GET http://localhost:3001/api/purchases HTTP/1.1
+Authorization: {{authToken}} 
+
+###
+GET http://localhost:3001/api/purchases HTTP/1.1

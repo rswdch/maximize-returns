@@ -10,6 +10,9 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Type imports
+import { ErrorRequestHandler } from "express";
+
 const app = express();
 
 // Middleware
@@ -30,6 +33,15 @@ app.use("/session", sessionRouter);
 app.use("*", (req, res) => {
   res.status(404).send("Not Found");
 });
+
+// Global Error handler
+const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  // All errors from async & non-async route above will be handled here
+  console.error(err.stack);
+  console.error(err.message);
+  res.status(500).send("An unknown error has occurred.");
+};
+app.use(globalErrorHandler);
 
 // Configure environment variables, start server
 dotenv.config();

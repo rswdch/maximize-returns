@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { Secret, JwtPayload } from "jsonwebtoken";
+import CustomError from "../utils/CustomError.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 const JWT_SECRET: string = String(process.env.JWT_SECRET);
@@ -18,22 +19,33 @@ async function grantToken(req: Request, res: Response, next: NextFunction) {
       }
       // Success
       res.cookie("token", data, { httpOnly: true });
-      next();
+      res.status(200).json({ token: data });
     }
   );
 }
 async function isLoggedIn(req: Request, res: Response, next: NextFunction) {
-  const { token } = req.cookies;
-  jwt.verify(token, JWT_SECRET, (err, data) => {
-    if (err?.name === "TokenExpiredError") {
-      res.redirect("/session/login");
-    } else if (err) {
-      res.status(401).send("Please authenticate");
-      next({ error: "OTHER JWT ERROR" });
+  try {
+    const token = req.header("Authorization")?.replace("Bearer", "");
+
+    // Error: no token was provided
+    if (!token) {
+      const MissingTokenError = new CustomError(
+        "No token was provided. Please login",
+        "MissingTokenError"
+      );
+      throw MissingTokenError;
     }
-    console.log("user is logged in");
-    console.log(data);
+
+    // Verify token
+    const tokenData = jwt.verify(token, JWT_SECRET);
     next();
-  });
+  } catch (e) {
+    if (e?.name === "TokenExpiredError" || e?.name === "MissingTokenError") {
+      console.log("User has invalid session.");
+      res.redirect("/session/login");
+    } else if (e) {
+      next(e);
+    }
+  }
 }
 export { grantToken, isLoggedIn };
