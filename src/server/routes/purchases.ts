@@ -2,6 +2,7 @@ import * as express from "express";
 import { Request, Response, NextFunction } from "express";
 import * as purchaseController from "../controllers/purchaseController.js";
 import * as session from "../middleware/session.js";
+import { validate, schemas } from "../middleware/validation.js";
 const router = express.Router();
 
 router.get(
@@ -9,13 +10,14 @@ router.get(
   session.isLoggedIn,
   purchaseController.getUserPurchases,
   (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).send("Hello from purchases GET");
+    res.status(200).json(res.locals.userPurchases);
   }
 );
 
 router.post(
   "/",
   session.isLoggedIn,
+  validate(schemas.newPurchase),
   purchaseController.addPurchase,
   (req: Request, res: Response, next: NextFunction) => {
     console.log("POST /purchases");

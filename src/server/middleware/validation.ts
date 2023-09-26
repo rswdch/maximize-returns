@@ -31,6 +31,20 @@ const schemas = {
       password: z.string().min(6),
     }),
   }),
+
+  newPurchase: z.object({
+    body: z.object({
+      // purchase_date: "2020-01-01",
+      product_id: z.number(),
+      // store_id: z.number(),
+      store_name: z.string(),
+      return_days: z.number(),
+      warranty_days: z.number(),
+      price: z.number(),
+      receipt_id: z.string().uuid(),
+      returned: z.boolean(),
+    }),
+  }),
 };
 
 export { validate, schemas };

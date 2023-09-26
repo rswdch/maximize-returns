@@ -17,3 +17,15 @@ Authorization: {{authToken}}
 ###
 POST http://localhost:3001/api/purchases HTTP/1.1
 Authorization: {{authToken}} 
+Content-Type: application/json
+
+{
+    "purchase_date": "2023-01-01",
+    "product_id": 1,
+    "store_name": "Best Buy",
+    "return_days": 90,
+    "warranty_days": 90,
+    "price": 1000,
+    "receipt_id": "1f3b30e1-1b64-4dbd-9098-ad6f7deb62d0",
+    "returned": false
+}
