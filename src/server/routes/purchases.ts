@@ -13,6 +13,17 @@ router.get(
   }
 );
 
+router.post(
+  "/",
+  session.isLoggedIn,
+  purchaseController.addPurchase,
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log("POST /purchases");
+    const purchaseDetails = res.locals.purchase_details;
+    res.send(purchaseDetails);
+  }
+);
+
 router.get(
   "/:id",
   session.isLoggedIn,
