@@ -23,6 +23,7 @@ async function grantToken(req: Request, res: Response, next: NextFunction) {
     }
   );
 }
+
 async function isLoggedIn(req: Request, res: Response, next: NextFunction) {
   try {
     const token = req.header("Authorization")?.replace("Bearer", "");
@@ -36,8 +37,18 @@ async function isLoggedIn(req: Request, res: Response, next: NextFunction) {
       throw MissingTokenError;
     }
 
-    // Verify token
-    const tokenData = jwt.verify(token, JWT_SECRET);
+    // Verify token and assign to res.locals
+    const tokenData = await jwt.verify(token, JWT_SECRET);
+    if (typeof tokenData === "string") {
+      const TokenVerifyError = new CustomError(
+        "Error verifying token, it was a string",
+        "TokenVerificationError"
+      );
+      throw TokenVerifyError;
+    }
+    // console.log("================Debugging tokenData===================");
+    // console.log("User ID: ", tokenData.ssid);
+    res.locals.userid = tokenData.ssid;
     next();
   } catch (e) {
     if (e?.name === "TokenExpiredError" || e?.name === "MissingTokenError") {
