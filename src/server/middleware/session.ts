@@ -37,17 +37,19 @@ async function isLoggedIn(req: Request, res: Response, next: NextFunction) {
       throw MissingTokenError;
     }
 
-    // Verify token and assign to res.locals
-    const tokenData = await jwt.verify(token, JWT_SECRET);
-    if (typeof tokenData === "string") {
-      const TokenVerifyError = new CustomError(
-        "Error verifying token, it was a string",
-        "TokenVerificationError"
-      );
-      throw TokenVerifyError;
-    }
-    // console.log("================Debugging tokenData===================");
-    // console.log("User ID: ", tokenData.ssid);
+    // // Verify token and assign to res.locals
+    const tokenData = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    // // Need type check due to typescript. If string, something wrong happened
+    // if (typeof tokenData === "string") {
+    //   const TokenVerifyError = new CustomError(
+    //     "Error verifying token, it was a string",
+    //     "TokenVerificationError"
+    //   );
+    //   throw TokenVerifyError;
+    // }
+
+    console.log("================ Verified User ===================");
+    console.log("User ID: ", tokenData.ssid);
     res.locals.userid = tokenData.ssid;
     next();
   } catch (e) {
