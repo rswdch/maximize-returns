@@ -46,4 +46,14 @@ router.delete(
   }
 );
 
+router.patch(
+  "/:id",
+  session.isLoggedIn,
+  purchaseController.updatePurchase,
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log("PATCH /purchases/id");
+    res.status(200).send(res.locals.updated);
+  }
+);
+
 export { router };

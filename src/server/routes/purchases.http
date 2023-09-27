@@ -39,3 +39,14 @@ Content-Type: application/json
 ###
 DELETE  http://localhost:3001/api/purchases/{{purchase.response.body.$.id}} HTTP/1.1
 Authorization: {{authToken}} 
+
+###
+PATCH {{baseurl}}api/purchases/{{purchase.response.body.$.id}} HTTP/1.1
+Authorization: {{authToken}} 
+Content-Type: application/json
+
+{
+  "store_name": "Updated Store Name",
+  "note": "This is a test of PATCH",
+  "product_name": "Patch testing strips"
+}

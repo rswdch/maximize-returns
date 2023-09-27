@@ -102,4 +102,32 @@ async function deletePurchase(req: Request, res: Response, next: NextFunction) {
   next();
 }
 
-export { getPurchase, getUserPurchases, addPurchase, deletePurchase };
+async function updatePurchase(req: Request, res: Response, next: NextFunction) {
+  console.log("Hello from purchaseController.updatePurchase");
+  try {
+    const updates = req.body;
+    if (updates.product_name) {
+      updates.product_id = await dbDecoder.productToId(req.body.product_name);
+      delete updates.product_name;
+    }
+    if (updates.store_name) {
+      updates.store_id = await dbDecoder.storeToId(req.body.store_name);
+      delete updates.store_name;
+    }
+    const result = await db
+      .updateTable("purchase_details")
+      .set(updates)
+      .where("id", "=", req.params.id)
+      .returningAll()
+      .executeTakeFirstOrThrow();
+    res.locals.updated = result;
+  } catch (error) {}
+  next();
+}
+export {
+  getPurchase,
+  getUserPurchases,
+  addPurchase,
+  deletePurchase,
+  updatePurchase,
+};
