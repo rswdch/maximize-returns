@@ -23,4 +23,25 @@ async function storeToId(storeName: string) {
   return storeId.id;
 }
 
-export { storeToId };
+async function productToId(name: string) {
+  const product = await db
+    .selectFrom("product")
+    .select("id")
+    .where("name", "=", name)
+    .executeTakeFirst();
+  if (typeof product === "undefined") {
+    console.log(`Product ${name} does not exist, creating new product.`);
+    const newProduct = await db
+      .insertInto("product")
+      .values({
+        name,
+      })
+      .returning("id as id")
+      .executeTakeFirstOrThrow();
+    console.log(newProduct.id);
+    return newProduct.id;
+  }
+
+  return product.id;
+}
+export { storeToId, productToId };

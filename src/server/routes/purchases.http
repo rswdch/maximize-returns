@@ -10,8 +10,12 @@ Content-Type: application/json
 ###
 @authToken = {{login.response.body.$.token}}
 
-###
+### GET all
 GET http://localhost:3001/api/purchases HTTP/1.1
+Authorization: {{authToken}} 
+
+### GET purchase by id
+GET http://localhost:3001/api/purchases/8f7776ba-1b6b-40cd-8953-22c784a70901 HTTP/1.1
 Authorization: {{authToken}} 
 
 ###
@@ -21,14 +25,15 @@ Authorization: {{authToken}}
 Content-Type: application/json
 
 {
-    "purchase_date": "2023-01-01",
-    "product_id": 1,
+    "purchase_date": "2023-09-25",
+    "product_name": "iPhone 15 Pro Max",
     "store_name": "New Test Store to Delete",
     "return_days": 90,
     "warranty_days": 90,
     "price": 1234,
     "receipt_id": "1f3b30e1-1b64-4dbd-9098-ad6f7deb62d0",
-    "returned": false
+    "returned": false,
+    "note": "Testing note fnction"
 }
 
 ###

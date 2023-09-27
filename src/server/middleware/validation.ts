@@ -35,7 +35,8 @@ const schemas = {
   newPurchase: z.object({
     body: z.object({
       // purchase_date: "2020-01-01",
-      product_id: z.number(),
+      // product_id: z.number(),
+      product_name: z.string(),
       // store_id: z.number(),
       store_name: z.string(),
       return_days: z.number(),

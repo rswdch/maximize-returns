@@ -32,8 +32,17 @@ async function getUserPurchases(
   next();
 }
 
-function getPurchase(req: Request, res: Response, next: NextFunction) {
-  console.log("Hello from purchaseControler.getPurchase");
+async function getPurchase(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await db
+      .selectFrom("purchase_details")
+      .where("id", "=", req.params.id)
+      .selectAll()
+      .executeTakeFirstOrThrow();
+    res.locals.purchase = result;
+  } catch (error) {
+    next(error);
+  }
   next();
 }
 
@@ -41,25 +50,27 @@ async function addPurchase(req: Request, res: Response, next: NextFunction) {
   // User will supply store, product
   // Need to get id
   try {
-    console.log("Hello from purchaseController.addPurchase");
+    // Automatically add store if not existing
     const storeId = await dbDecoder.storeToId(req.body.store_name);
+    const productId = await dbDecoder.productToId(req.body.product_name);
 
     // Destructure all the items in request body
     // Note: already has been validated with Zod
     const {
+      product_name,
       purchase_date,
-      product_id,
       return_days,
       warranty_days,
       price,
       receipt_id,
+      note,
     } = req.body;
 
     const result = await db
       .insertInto("purchase_details")
       .values({
         purchase_date,
-        product_id,
+        product_id: productId,
         store_id: storeId,
         return_days,
         warranty_days,
@@ -67,6 +78,7 @@ async function addPurchase(req: Request, res: Response, next: NextFunction) {
         user_id: res.locals.userid,
         receipt_id: "1f3b30e1-1b64-4dbd-9098-ad6f7deb62d0",
         returned: false,
+        note,
       })
       .returningAll()
       .executeTakeFirst();

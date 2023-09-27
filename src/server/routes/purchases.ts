@@ -31,7 +31,7 @@ router.get(
   session.isLoggedIn,
   purchaseController.getPurchase,
   (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).send("Hello from purchase details");
+    res.status(200).send(res.locals.purchase);
   }
 );
 
