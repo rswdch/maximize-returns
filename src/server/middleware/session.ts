@@ -18,7 +18,8 @@ async function grantToken(req: Request, res: Response, next: NextFunction) {
         next({ err: "JWT ERROR" });
       }
       // Success
-      res.cookie("token", data, { httpOnly: true });
+      // Token stored in localStorage, not cookie
+      // res.cookie("token", data, { httpOnly: true });
       res.status(200).json({ token: data });
     }
   );
