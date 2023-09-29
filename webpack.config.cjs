@@ -25,6 +25,16 @@ module.exports = {
       publicPath: "/", // URL mapped to folder
       directory: path.resolve(__dirname, "dist", "client"), // Folder where index.html is
     },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        secure: false,
+      },
+      '/session': {
+        target: 'http://localhost:3001',
+        secure: false,
+      },
+    },
     historyApiFallback: true,
   },
 };
