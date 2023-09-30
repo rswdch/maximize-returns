@@ -15,8 +15,8 @@ async function getUserPurchases(
       .innerJoin("store", "purchase_details.store_id", "store.id")
       .select([
         "purchase_details.id",
-        "product.name",
-        "store.name",
+        "product.name as product",
+        "store.name as store",
         "purchase_details.purchase_date",
         "purchase_details.return_days",
         "purchase_details.warranty_days",
