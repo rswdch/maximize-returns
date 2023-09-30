@@ -27,6 +27,7 @@ const Dashboard = ({user}) => {
       <h3>Here are your products</h3>
       { isFetched ? purchases.map(el => <tr>
         <th>{el.name}</th>
+        <th>{el.name}</th>
       </tr>) : <p>Loading...</p>}
     </div>
   )
