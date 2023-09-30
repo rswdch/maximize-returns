@@ -26,7 +26,10 @@ const Login = ({ setUser }) => {
       });
       const resultJson = await result.json();
       localStorage.setItem("token", resultJson.token);
+      console.log("FormData username")
+      console.log(formData.get('username'))
       setUser(formData.get("username"));
+      navigate('/dashboard')
     } catch (error) {
       console.error("Authentication Error! Please log in again!");
     }
