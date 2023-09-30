@@ -34,7 +34,7 @@ router.post(
   (req: Request, res: Response, next: NextFunction) => {
     // Check if username is available
     const { email, username, password } = req.body;
-    res.json(req.body);
+    res.status(200).send("Signup complete, token granted");
   }
 );
 

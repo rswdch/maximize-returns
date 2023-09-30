@@ -8,6 +8,7 @@ import { PurchaseContext } from "../contexts/PurchaseContext.jsx";
 const Dashboard = ({ user }) => {
   const [purchases, setPurchases] = useState({});
   const [isFetched, setFetched] = useState(false);
+  const [isEmpty, setEmpty] = useState(true);
 
   useEffect(() => {
     console.log("The token in fetch is");
@@ -18,12 +19,29 @@ const Dashboard = ({ user }) => {
       },
     })
       .then((res) => {
-        return res.json();
+        console.log("Need to log in then");
+        const dummyData = {
+          product: "Welcome",
+          store: "Create your first item",
+          price: 0,
+          purchase_date: "0",
+          return_days: 90,
+          warranty_days: 90,
+          returned: true,
+        };
+        console.log(res);
+        return res.json() || dummyData;
       })
       .then((data) => {
+        if (data.length > 0) {
+          setEmpty(false);
+        }
         setPurchases(data);
         setFetched(true);
         console.log(Object.keys(data[0]));
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
   }, []);
 
@@ -58,7 +76,7 @@ const Dashboard = ({ user }) => {
       <table className="table">
         <TableHead columns={columns} />
         <tbody>
-          {isFetched ? (
+          {isFetched && !isEmpty ? (
             purchases.map((el) => (
               <tr key={el.id}>
                 <td>{el.product}</td>

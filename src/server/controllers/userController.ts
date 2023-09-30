@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { db } from "../utils/pgConnect.js";
 import { Timestamp, User } from "kysely-codegen";
+import { addPurchase } from "./purchaseController.js";
 import * as bcrypt from "bcrypt";
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -38,8 +39,29 @@ async function createUser(req: Request, res: Response, next: NextFunction) {
     .values(newUser)
     .returning("user.id")
     .executeTakeFirst();
+  console.log("================userController CREATED USER ID==============");
   console.log(createdUserId);
-  res.locals.userid = createdUserId;
+
+  // Insert dummy data for first render
+  // const today = Date.now();
+  // const result = await db
+  //   .insertInto("purchase_details")
+  //   .values({
+  //     purchase_date: today.toString(),
+  //     product_id: ,
+  //     store_id: storeId,
+  //     return_days,
+  //     warranty_days,
+  //     price,
+  //     user_id: res.locals.userid,
+  //     receipt_id: "1f3b30e1-1b64-4dbd-9098-ad6f7deb62d0",
+  //     returned: false,
+  //     note,
+  //   })
+  //   .returningAll()
+  //   .executeTakeFirst();
+
+  res.locals.user = { id: createdUserId?.id };
   next();
 }
 
