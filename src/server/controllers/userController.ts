@@ -33,13 +33,13 @@ async function createUser(req: Request, res: Response, next: NextFunction) {
   newUser.password = hashedPassword;
 
   // Insert new user into db and get the user id
-  const createdUserId = db
+  const createdUserId = await db
     .insertInto("user")
     .values(newUser)
     .returning("user.id")
     .executeTakeFirst();
   console.log(createdUserId);
-  res.locals.user.id = createdUserId;
+  res.locals.userid = createdUserId;
   next();
 }
 
