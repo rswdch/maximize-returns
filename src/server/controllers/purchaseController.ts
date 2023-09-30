@@ -84,6 +84,8 @@ async function addPurchase(req: Request, res: Response, next: NextFunction) {
       .executeTakeFirst();
 
     res.locals.purchase_details = result;
+    res.locals.purchase_details.product = req.body.product_name;
+    res.locals.purchase_details.store = req.body.store_name;
   } catch (e) {
     next(e);
   }
