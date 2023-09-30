@@ -71,8 +71,10 @@ interface UserLogin {
 }
 async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    console.log("userController.login not implemented");
     const { username, password }: UserLogin = req.body;
+    console.log(`Received body`);
+    console.log(req.body);
+    console.log(Object.keys(req.body));
 
     const result = await db
       .selectFrom("user")

@@ -16,7 +16,7 @@ router.post(
   userController.login,
   session.grantToken,
   (req: Request, res: Response, next: NextFunction) => {
-    console.log("/login not yet implemented");
+    console.log("/login route");
     res.status(200).send("/login not implemented");
   }
 );

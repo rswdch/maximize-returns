@@ -1,10 +1,13 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import * as path from "path";
+import bodyParser from "body-parser";
+
 // Import routers
 import { router as purchaseRouter } from "./routes/purchases.js";
 import { router as userRouter } from "./routes/users.js";
 import { router as sessionRouter } from "./routes/sessions.js";
+
 // ES6 compatibility for __dirname
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
@@ -16,8 +19,8 @@ import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 const app = express();
 
 // Middleware
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-// app.use(express.urlencoded());
 
 // Serve static client files
 app.use(express.static(path.resolve(__dirname, "../../dist/client/")));
