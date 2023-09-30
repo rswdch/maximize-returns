@@ -42,7 +42,7 @@ const schemas = {
       return_days: z.number(),
       warranty_days: z.number(),
       price: z.number(),
-      receipt_id: z.string().uuid(),
+      // receipt_id: z.string().uuid(),
       returned: z.boolean(),
     }),
   }),

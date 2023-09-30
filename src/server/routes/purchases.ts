@@ -22,6 +22,7 @@ router.post(
   (req: Request, res: Response, next: NextFunction) => {
     console.log("POST /purchases");
     const purchaseDetails = res.locals.purchase_details;
+    console.log(purchaseDetails);
     res.send(purchaseDetails);
   }
 );

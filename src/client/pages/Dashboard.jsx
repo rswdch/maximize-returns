@@ -1,7 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import TableHead from "../components/TableHead.jsx";
 import AuthedNavbar from "./AuthedNavbar.jsx";
+import ItemForm from "../components/ItemForm.jsx";
+import { PurchaseContext } from "../contexts/PurchaseContext.jsx";
 
 const Dashboard = ({ user }) => {
   const [purchases, setPurchases] = useState({});
@@ -27,8 +29,8 @@ const Dashboard = ({ user }) => {
 
   const columns = [
     { label: "Item", accessor: "product" },
-    { label: "Price", accessor: "price" },
     { label: "Store", accessor: "store" },
+    { label: "Price", accessor: "price" },
     { label: "Purchase Date", accessor: "purchase_date" },
     { label: "Return", accessor: "return_days" },
     { label: "Warranty", accessor: "warranty_days" },
@@ -60,14 +62,22 @@ const Dashboard = ({ user }) => {
             purchases.map((el) => (
               <tr key={el.id}>
                 <td>{el.product}</td>
-                <td>{el.price}</td>
                 <td>{el.store}</td>
+                <td>{el.price}</td>
                 <td>{new Date(el.purchase_date).toLocaleDateString()}</td>
                 <td>{el.return_days}</td>
                 <td>{el.warranty_days}</td>
                 <td>{el.returned ? "Returned" : "In your inventory"}</td>
                 <td>
-                  <button onClick={() => handleDelete(el.id)}>Delete</button>
+                  <button
+                    className="btn-delete"
+                    onClick={() => handleDelete(el.id)}
+                  >
+                    Modify
+                  </button>
+                  <button className="btn" onClick={() => handleDelete(el.id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))
@@ -78,6 +88,9 @@ const Dashboard = ({ user }) => {
           )}
         </tbody>
       </table>
+      <PurchaseContext.Provider value={[purchases, setPurchases]}>
+        <ItemForm />
+      </PurchaseContext.Provider>
     </div>
   );
 };
