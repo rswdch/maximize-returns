@@ -3,7 +3,7 @@ Mazimize My Returns is a simple Create Read Update Delete (CRUD) app to store pu
 ## Technologies Used
 * Database: PostgreSQL with Kysely SQL query builder to connect to TypeScript
 * Sever: TypeScript with ExpressJS
-* Client: React
+* Client: React bundled with Webpack
 
 ## To Do
 - [ ] Receipt image uploads
