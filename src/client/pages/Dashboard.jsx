@@ -107,7 +107,7 @@ const Dashboard = ({ user }) => {
         </tbody>
       </table>
       <PurchaseContext.Provider value={[purchases, setPurchases]}>
-        <ItemForm />
+        <ItemForm setEmpty={setEmpty} />
       </PurchaseContext.Provider>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { PurchaseContext } from "../contexts/PurchaseContext.jsx";
 
-const ItemForm = () => {
+const ItemForm = ({ setEmpty }) => {
   const [purchases, setPurchases] = useContext(PurchaseContext);
 
   async function handleSubmit(e) {
@@ -29,6 +29,7 @@ const ItemForm = () => {
       const newPurchases = purchases.concat(newItem);
       setPurchases(newPurchases);
       document.querySelector(".form").reset();
+      setEmpty(false);
     } catch (error) {
       console.error("Item creation error");
     }
