@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { db } from "../utils/pgConnect.js";
-import { Timestamp, User } from "kysely-codegen";
-import { addPurchase } from "./purchaseController.js";
+import { db } from "../../utils/pgConnect.js";
 import * as bcrypt from "bcrypt";
 import * as dotenv from "dotenv";
 dotenv.config();

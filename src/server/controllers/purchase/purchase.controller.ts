@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { db } from "../utils/pgConnect.js";
-import * as dbDecoder from "../utils/dbDecoder.js";
+import { db } from "../../utils/pgConnect.js";
+import * as dbDecoder from "../../utils/dbDecoder.js";
 
 async function getUserPurchases(
   req: Request,

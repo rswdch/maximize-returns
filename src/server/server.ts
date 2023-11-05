@@ -4,9 +4,9 @@ import * as path from "path";
 import bodyParser from "body-parser";
 
 // Import routers
-import { router as purchaseRouter } from "./routes/purchases.js";
-import { router as userRouter } from "./routes/users.js";
-import { router as sessionRouter } from "./routes/sessions.js";
+import { router as purchaseRouter } from "./controllers/purchase/purchase.routes.js";
+import { router as userRouter } from "./controllers/user/user.routes.js";
+import { router as sessionRouter } from "./controllers/session/session.routes.js";
 
 // ES6 compatibility for __dirname
 import { fileURLToPath } from "url";

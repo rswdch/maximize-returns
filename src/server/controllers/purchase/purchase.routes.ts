@@ -1,8 +1,8 @@
 import * as express from "express";
 import { Request, Response, NextFunction } from "express";
-import * as purchaseController from "../controllers/purchaseController.js";
-import * as session from "../middleware/session.js";
-import { validate, schemas } from "../middleware/validation.js";
+import * as purchaseController from "./purchase.controller.js";
+import * as session from "../../middleware/session.js";
+import { validate, schemas } from "../../middleware/validation.js";
 const router = express.Router();
 
 router.get(

@@ -1,9 +1,9 @@
 import * as express from "express";
 import { Request, Response, NextFunction } from "express";
-import * as purchaseController from "../controllers/purchaseController.js";
-import { validate, schemas } from "../middleware/validation.js";
-import * as userController from "../controllers/userController.js";
-import * as session from "../middleware/session.js";
+import * as purchaseController from "../purchase/purchase.controller.js";
+import { validate, schemas } from "../../middleware/validation.js";
+import * as userController from "../user/user.controller.js";
+import * as session from "../../middleware/session.js";
 const router = express.Router();
 
 /* Login
