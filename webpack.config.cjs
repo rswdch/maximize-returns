@@ -10,7 +10,8 @@ module.exports = {
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist", "client"),
-    publicPath: '/' // needs to be project root for HtmlWebpackPlugin, ./ does not work
+    publicPath: '/', // needs to be project root for HtmlWebpackPlugin, ./ does not work
+    clean: true,
   },
   module: {
     rules: [
@@ -22,8 +23,16 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        test: /\.css$/i,
+        // include: path.resolve(__dirname, "src", "client"),
+        use: ['style-loader', 'css-loader', {
+          loader: 'postcss-loader',
+          options: {
+            postcssOptions: {
+              config: path.resolve(__dirname, 'postcss.config.cjs'),
+            },
+          },
+        },],
       },
     ],
   },

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "webpack --progress",
     "serve": "webpack-dev-server",
     "dev": "nodemon --exec node --loader ts-node/esm src/server/server.ts"
   },
@@ -32,6 +32,7 @@
     "kysely-codegen": "^0.10.1",
     "nodemon": "^3.0.1",
     "postcss": "^8.4.32",
+    "postcss-loader": "^7.3.3",
     "style-loader": "^3.3.3",
     "supertest": "^6.3.3",
     "tailwindcss": "^3.3.6",
@@ -46,11 +47,13 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "daisyui": "^4.4.19",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "kysely": "^0.26.3",
     "pg": "^8.11.3",
+    "postcss-import": "^15.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
