@@ -1,24 +1,34 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
   devtool: "eval-source-map",
-  entry: "./src/client/index.js",
+  entry: {
+    main: "./src/client/index.js"
+  },
   output: {
-    filename: "bundle.js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist", "client"),
-    // publicPath: path.resolve(__dirname, "dist", "client"),
+    publicPath: '/' // needs to be project root for HtmlWebpackPlugin, ./ does not work
   },
   module: {
     rules: [
       {
-        test: /.(js|jsx)$/,
+        test: /.(js|jsx|ts|tsx)$/,
         include: path.resolve(__dirname, "src", "client"),
         use: {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json']
   },
   devServer: {
     static: {
@@ -37,4 +47,11 @@ module.exports = {
     },
     historyApiFallback: true,
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: "src/client/index.html",
+      chunks: "main",
+    }),
+  ],
 };
