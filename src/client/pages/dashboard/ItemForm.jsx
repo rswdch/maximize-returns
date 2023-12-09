@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { PurchaseContext } from "../contexts/PurchaseContext.jsx";
+import { PurchaseContext } from "../../contexts/PurchaseContext.jsx";
 
 const ItemForm = ({ setEmpty }) => {
   const [purchases, setPurchases] = useContext(PurchaseContext);
