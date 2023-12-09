@@ -1,9 +1,9 @@
 import React from "react";
-import { useState, useEffect, createContext } from "react";
-import TableHead from "../components/TableHead.jsx";
-import AuthedNavbar from "./AuthedNavbar.jsx";
-import ItemForm from "../components/ItemForm.jsx";
-import { PurchaseContext } from "../contexts/PurchaseContext.jsx";
+import { useState, useEffect } from "react";
+import TableHead from "./TableHead.jsx";
+import AuthedNavbar from "../../components/AuthedNavbar.jsx";
+import ItemForm from "./ItemForm.jsx";
+import { PurchaseContext } from "../../contexts/PurchaseContext.jsx";
 
 const Dashboard = ({ user }) => {
   const [purchases, setPurchases] = useState({});

@@ -1,15 +1,14 @@
 import React from "react";
-import MainContainer from "./containers/MainContainer.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import About from "./pages/About.jsx";
-import Signup from "./pages/Signup.jsx";
-import Login from "./pages/Login.jsx";
-import Error from "./pages/Error.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import SharedLayout from "./pages/SharedLayout.jsx";
+import About from "./pages/about/page.jsx";
+import Signup from "./pages/signup/page.jsx";
+import Login from "./pages/login/page.jsx";
+import Error from "./pages/error/page.jsx";
+import Dashboard from "./pages/dashboard/page.jsx";
+import SharedLayout from "./components/SharedLayout.jsx";
 import { useState } from "react";
-import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 const App = () => {
   const [user, setUser] = useState(null);
