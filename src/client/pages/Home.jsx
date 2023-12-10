@@ -1,23 +1,44 @@
 import React from "react";
-import { Button } from "daisyui"
 
 const Home = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Welcome to Maximize My Returns!</h1>
-      <p>
-        Organize your purchases and never lose your receipts for returns and
-        warranties.
-      </p>
-      <p>
-        Blazingly Fast! Built with TypeScript, Express, React, and PostgreSQL
-      </p>
-      <div className="bg-blue-500 text-white p-4">
-        This is a component styled with Tailwind CSS!
+    <div className="hero min-h-screen" style={{backgroundImage: 'url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg)'}}>
+      <div className="hero-overlay bg-opacity-60"></div>
+      <div className="hero-content text-center text-neutral-content">
+        <div className="max-w-md">
+          <h1 className="mb-5 text-5xl font-bold">Welcome to Maximize My Returns!</h1>
+          <p className="mb-5">
+            Organize your purchases and never lose your receipts for returns and
+            warranties.
+          </p>
+          <p className="mb-5">
+            Blazingly Fast! Built with TypeScript, Express, React, and PostgreSQL
+          </p>
+          <button className="btn btn-primary">Get Started</button>
+        </div>
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <form className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input type="email" placeholder="email" className="input input-bordered" required />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input type="password" placeholder="password" className="input input-bordered" required />
+              <label className="label">
+                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+              </label>
+            </div>
+            <div className="form-control mt-6">
+              <button className="btn btn-primary">Login</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <button className="btn">
-        Click me!
-      </button>
     </div>
   );
 };
